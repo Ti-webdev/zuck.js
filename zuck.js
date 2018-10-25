@@ -1120,6 +1120,8 @@
               addMuted(video);
             };
 
+            video.load();
+
             if (unmute.target) {
               unmuteVideoItem(video, storyViewer);
             }
