@@ -508,7 +508,7 @@
                 (currentItem === i ? "active" : "") +
                 '">' +
                 (get(item, "type") === "video"
-                  ? '<video class="media" muted webkit-playsinline playsinline preload="auto" src="' +
+                  ? '<video class="media" webkit-playsinline playsinline preload="auto" src="' +
                     get(item, "src") +
                     '" ' +
                     get(item, "type") +
@@ -535,7 +535,7 @@
 
             var storyViewer = d.createElement("div");
             storyViewer.className =
-              "story-viewer muted " +
+              "story-viewer " +
               className +
               " " +
               (!forcePlay ? "stopped" : "") +
