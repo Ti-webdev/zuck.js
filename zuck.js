@@ -578,9 +578,9 @@
             }
 
             each(
-              storyViewer.querySelectorAll(".slides-pointers [data-index] > b"),
+              storyViewer.querySelectorAll(".slides-pointers [data-index]"),
               function(i, el) {
-                onAnimationEnd(el, function() {
+                onAnimationEnd(el, function (e) {
                   zuck.nextItem(false);
                 });
               }
@@ -1038,11 +1038,29 @@
               if (e) {
               }
               if (video.duration) {
+                var duration = video.duration + "s"
+
+                var oldNode = itemPointer.getElementsByTagName("b")[0]
+                var newNode = d.createElement("b")
                 setVendorVariable(
-                  itemPointer.getElementsByTagName("b")[0].style,
-                  "AnimationDuration",
-                  video.duration + "s"
+                  newNode.style,
+                  "AnimationDelay",
+                  "-" + video.currentTime + "s"
                 );
+                setVendorVariable(
+                  newNode.style,
+                  "AnimationDuration",
+                  duration
+                );
+                if (video.paused) {
+                  setVendorVariable(
+                    newNode.style,
+                    "AnimationPlayState",
+                    "paused"
+                  );
+                }
+                oldNode.parentNode.insertBefore(newNode, oldNode)
+                oldNode.parentNode.removeChild(oldNode)
               }
             };
 
@@ -1119,10 +1137,9 @@
             video.onvolumechange = function(e) {
               addMuted(video);
             };
-
             video.load();
 
-            if (unmute.target) {
+            if (unmute) {
               unmuteVideoItem(video, storyViewer);
             }
           } else {
